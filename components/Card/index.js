@@ -38,11 +38,11 @@ const styles =
             borderColor: "#658d80",
             borderRadius: 10,
             padding: 20,
-            width: 75
-            height: 50
+            width: 200,
+            display: flex
         }
         wrapButtons: {
             flexDirection: 'column',
-            alignItems: 'flex-end',
+            alignItems: 'center',
         }
     })
