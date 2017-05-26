@@ -13,8 +13,7 @@ export default class App extends Component {
         this.state = {
             boards: BOARDS,
             users: USERS,
-            boardInput: '',
-            userInput: ''
+            boardInput: ''
         }
     }
 
@@ -22,18 +21,11 @@ export default class App extends Component {
         this.setState({boards: [...this.state.boards, {name: this.state.boardInput}]});
     }
 
-    createUser() {
-        this.setState({users: [...this.state.users, {name: this.state.userInput}]});
-    }
-
     render() {
         return (
             <View>
                 <TextInput style={styles.inputs} onChangeText={(boardInput) => this.setState({boardInput})} value={this.state.boardInput} />
                 <Button style={styles.buttons} onPress={createBoard} title="Create Board" />
-
-                <TextInput style={styles.inputs} onChangeText={(userInput) => this.setState({userInput})} value={this.state.userInput} />
-                <Button style={styles.buttons} onPress={createUser} title="Create User" />
 
                 <View>{this.state.boards.map(b, i) => <Board key={i} {...b} />}</View>
             </View>
