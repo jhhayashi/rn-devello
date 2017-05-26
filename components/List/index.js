@@ -1,22 +1,27 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import PropTypes from 'prop-types'
+import Card from '../Card'
 
-export default List = props => (
+export default List
+
+const List = props => (
     <View style = {styles.list}>
-        <Text>{this.props.title}</Text>
-        {this.props.cards.map(card => <Card key={card.id} {...card} />)}
+        <Text>{props.title}</Text>
+        {props.cards.map(card => <Card key={card.id} {...card} />)}
     </View>
 )
 
 List.propTypes = {
-    props.title = PropTypes.string.isRequired,
-    props.cards = PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
+    cards: PropTypes.array.isRequired,
 }
 
 const styles = StyleSheet.create({
     list: {
         border: 10,
         backgroundColor: '#ffaa11',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     }
 })
