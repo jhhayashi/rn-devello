@@ -6,36 +6,28 @@ export default class Button extends Component {
     static propTypes = {
         text: PropTypes.string,
         onClick: PropTypes.func.isRequired,
-        variant: PropTypes.oneOf(['default', 'forward', 'backward', 'delete', 'create']).isRequired
     }
 
     static defaultProps = {
         text: 'Click Me!',
-        variant: 'default'
     }
 
-    getText = () => {
-        switch(this.props.variant) {
-            case 'default':
-                return '&#10003;';
-            case 'forward':
-                return '-->';
-            case 'backward':
-                return '<--';
-            case 'delete':
-                return 'X';
-            case 'create':
-                return '+'
-            default:
-                return '&#43;';
+    buttonColor = (type) => {
+        return {
+            if(type === 'default') return {backgroundColor: '#898989'}
+            else if(type === 'forward') return {backgroundColor: '#34ff1a'}
+            else if(type === 'backward') return {backgroundColor: 'green'}
+            else if(type === 'delete') return {backgroundColor: '#ff0300'}
+            else return {backgroundColor: '#34ff1a'}
         }
     }
 
     render() {
+        if (this.props.text === 'default')
         return (
             <View style={styles.container}>
-                <TouchableOpacity onPress={this.props.onClick} style={[styles.button, styles.`${this.props.variant}`]}>
-                    {this.getText()}
+                <TouchableOpacity onPress={this.props.onClick} style={[styles.button, buttonColor(this.props.text)]}>
+                    {this.props.text}
                 </TouchableOpacity>
             </View>
         );
@@ -53,24 +45,22 @@ const styles = StyleSheet.create({
     button: {
         padding: 5,
         borderRadius: 5,
-        width: 20,
-        height: 20,
         fontSize: 10,
         color: '#ffffff',
     },
-    default: {
-        backgroundColor: '#898989',
-    },
-    forward: {
-        backgroundColor: '#34ff1a',
-    },
-    backward: {
-        backgroundColor: 'green',
-    },
-    delete: {
-        backgroundColor: '#ff0300',
-    },
-    create {
-        backgroundColor: '#34ff1a',
-    },
+    // default: {
+    //     backgroundColor: '#898989',
+    // },
+    // forward: {
+    //     backgroundColor: '#34ff1a',
+    // },
+    // backward: {
+    //     backgroundColor: 'green',
+    // },
+    // delete: {
+    //     backgroundColor: '#ff0300',
+    // },
+    // create {
+    //     backgroundColor: '#34ff1a',
+    // },
 })
