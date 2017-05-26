@@ -19,18 +19,18 @@ export default class App extends Component {
     }
 
     createBoard() {
-        this.setState(s => {return {boards: [...s.boards, {name: s.boardInput}]}});
+        this.setState(s => ({boards: [...s.boards, {name: s.boardInput}]}));
     }
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={styles.view}>
                 <TextInput style={styles.inputs}
                            onChangeText={(boardInput) => {
                                this.setState({boardInput})
                            }}
                            value={this.state.boardInput} />
-                <Button onClick={createBoard} text="Create Board" />
+                <Button onClick={this.createBoard} text="Create Board" />
 
                 <View>{this.state.boards.map(b, i) => <Board key={i} {...b} />}</View>
             </View>
@@ -43,5 +43,8 @@ const styles = StyleSheet.create({
         height: 40,
         borderColor: 'gray',
         borderWidth: 1
+    },
+    view: {
+        flex: 1
     }
 });
