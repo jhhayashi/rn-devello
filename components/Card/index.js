@@ -18,7 +18,7 @@ export defualt class Card extends Component {
     render(){
         return (
             <View style={styles.card}>
-                <Text> {this.props.text} </Text>
+                <Text style={styles.textWrap}>{this.props.text}</Text>
                 <View style={styles.wrapButtons}>
                     <Button onPress={this.props.moveBackward} text='<--'/>
                     <Button onPress={this.props.moveForward} text='-->'/>
@@ -38,11 +38,16 @@ const styles =
             borderColor: "#658d80",
             borderRadius: 10,
             padding: 20,
-            width: 200,
-            display: flex
+            display: flex,
+            flexDirection: row
+        },
+        textWrap: {
+            flex: 3,
         }
         wrapButtons: {
             flexDirection: 'column',
+            justifyContent: 'center'
             alignItems: 'center',
+            flex: 1,
         }
     })
