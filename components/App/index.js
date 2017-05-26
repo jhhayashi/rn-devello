@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
-import Board from './Board'
-import Button from './Button'
+import Board from '../Board'
+import Button from '../Button'
 
 const BOARDS = [{name: 'Bootcamp'}];
 const USERS = {name: 'Admin'};
