@@ -3,38 +3,33 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native'
 import PropTypes from 'prop-types'
 
 export default class Board extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { lists: [{
-            title: "list1",
-            cards: [{text: 'text1', id: '1'},
-                    {text: 'text2', id: '2'}],
-            },
-            {
-                title: "list2",
-                cards: [{text: 'text3', id: '3'},
-                        {text: 'text4', id: '4'}],
-            }
-        ]};
+
+    static propTypes = {
+        name: PropTypes.string.isRequired
     }
 
-    render() {
-        return (
-            <View>
-                <Text>{this.props.name}</Text>
-                <View style={styles.boardWrap}>
-                    {this.state.lists.map((l, i) => <List title={l.title} cards={l.cards} key={i}/>)}
-                </View>
-            </View>
-        );
+    constructor(props) {
+        super(props);
+        this.state = {
+                        lists: [{
+                                    title: "list1",
+                                    cards: [{text: 'text1', id: '1'},
+                                            {text: 'text2', id: '2'}],
+                                },
+                                {
+                                    title: "list2",
+                                    cards: [{text: 'text3', id: '3'},
+                                            {text: 'text4', id: '4'}],
+                                }]
+                    };
     }
 
     move = (id, dir) => {
-        let index = -1;
+        let index;
         let card;
         let newLists = this.state.lists.map((l, i) => {
             return {
-                title: l.title,
+                ...l,
                 cards: l.cards.filter(e => {
                     if (e.id === id) {
                         index = i;
@@ -46,13 +41,15 @@ export default class Board extends Component {
             }
         });
 
-        if (index === -1) throw new Error ('you suck: no card with that id');
-        if ((index + dir) < 0 || (index + dir) >= this.state.lists.length) throw new Error ('you illegal with your move');
+        if (!index) throw new Error ('you suck: no card with that id');
+        if ((index + dir) < 0 || (index + dir) >= this.state.lists.length) {
+            throw new Error ('you illegal with your move');
+        }
 
         this.setState({ lists: newLists.map((l, i) => {
             if (i === index + dir) {
                 return {
-                    title: l.title,
+                    ...l,
                     cards: [card, ...l.cards]
                 }
             }
@@ -66,25 +63,38 @@ export default class Board extends Component {
     deleteCard = id => {
         let newLists = this.state.lists.map((l, i) => {
             return {
-                title: l.title,
-                cards: l.cards.filter(e => e.id !== id)
+                ...l,
+                cards: l.cards.filter(card => card.id !== id)
             }
         });
         this.setState({ lists: newLists });
     }
 
     addFunctions = () => {
-        let newLists = this.state.lists.map(l => {
-            l.cards.map(e => {
-                e.moveForward = this.moveForward.bind(null, e.id);
-                e.moveBackward = this.moveBackward.bind(null, e.id);
-                e.delete = this.deleteCard.bind(null, e.id);
-            });
+        this.setState({
+            lists: this.state.lists.map(l => {
+                l.cards.map(card => {
+                    card.moveForward = this.moveForward.bind(null, card.id);
+                    card.moveBackward = this.moveBackward.bind(null, card.id);
+                    card.delete = this.deleteCard.bind(null, card.id);
+                });
+            })
         });
     }
 
     componentWillMount = () => {
         this.addFunctions();
+    }
+
+    render() {
+        return (
+            <View>
+                <Text>{this.props.name}</Text>
+                <View style={styles.boardWrap}>
+                    {this.state.lists.map((l, i) => <List {...l} key={l.title}/>)}
+                </View>
+            </View>
+        );
     }
 }
 

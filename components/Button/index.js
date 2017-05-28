@@ -6,7 +6,7 @@ export default class Button extends Component {
     static propTypes = {
         text: PropTypes.string,
         onClick: PropTypes.func.isRequired,
-        variant: PropTypes.oneOf(['forward', 'backward', 'delete', 'close', 'default'])
+        style: PropTypes.oneOf(['forward', 'backward', 'delete', 'close', 'default']).isRequired
     }
 
     static defaultProps = {
@@ -14,7 +14,7 @@ export default class Button extends Component {
     }
     render() {
         return (
-            <TouchableOpacity onPress={this.props.onClick} style={[styles.button, styles[this.props.variant]]}>
+            <TouchableOpacity onPress={this.props.onClick} style={[styles.button, styles[this.props.style]]}>
                 <Text style={styles.text}>{this.props.text}</Text>
             </TouchableOpacity>
         );

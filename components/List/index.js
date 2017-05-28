@@ -18,7 +18,6 @@ List.propTypes = {
 const styles = StyleSheet.create({
     list: {
         backgroundColor: '#9b0200',
-        display: 'flex',
         flexDirection: 'column',
         padding: 30,
         justifyContent: 'space-between',

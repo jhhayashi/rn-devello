@@ -2,9 +2,6 @@ import Expo, { Constants } from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
-import Button from './components/Button';
-import Card from './components/Card';
-import List from './components/List';
 import Board from './components/Board';
 
 class App extends React.Component {
